@@ -16,6 +16,11 @@ public:
 	~IntSLList();
 
 	int isEmpty();
+	void addToHead(int);
+	void addToTail(int);
+	int deleteFromHead();	// deletes the head and returns its info
+	int deleteFromTail();	// deletes the tail and returns its info
+	bool isInList(int) const;
 
 private:
 	IntNode *head, *tail;

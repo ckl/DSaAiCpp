@@ -28,7 +28,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IntSLList.h">
-      <Filter>Source Files\IntSLList</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
