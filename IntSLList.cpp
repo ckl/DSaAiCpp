@@ -41,3 +41,32 @@ void IntSLList::addToTail(int el) {
 	}
 }
 
+int IntSLList::deleteFromHead() {
+	int el = head->info;
+	IntNode *tmp = head;
+
+	if (head == tail) {		// only one node in the list
+		head = tail = 0;
+	}
+	else {
+		head = head->next;
+	}
+	delete tmp;
+	return el;
+}
+
+int IntSLList::deleteFromTail() {
+	int el = tail->info;
+	if (head == tail) {
+		delete head;
+		tail = head = 0;
+	}
+	else {
+		IntNode *tmp;	// find the predecessor of tail
+		for (tmp = head; tmp->next != tail; tmp = tmp->next);
+		delete tail;
+		tail = tmp;
+		tail->next = 0;
+	}
+	return el;
+}
