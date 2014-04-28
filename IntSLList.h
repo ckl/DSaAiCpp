@@ -2,12 +2,12 @@
 #define INT_LINKED_LIST
 
 
-class IntNode {
+class IntSLLNode {
 public:
 	int info;
-	IntNode *next;
+	IntSLLNode *next;
 
-	IntNode(int el, IntNode *ptr);
+	IntSLLNode(int el, IntSLLNode *ptr);
 };
 
 class IntSLList {
@@ -20,10 +20,11 @@ public:
 	void addToTail(int);
 	int deleteFromHead();	// deletes the head and returns its info
 	int deleteFromTail();	// deletes the tail and returns its info
+	void deleteNode(int el);
 	bool isInList(int) const;
 
 private:
-	IntNode *head, *tail;
+	IntSLLNode *head, *tail;
 };
 
 #endif /* INT_LINKED_LIST */

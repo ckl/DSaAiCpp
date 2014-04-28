@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "IntSLList.h"
 
-IntNode::IntNode(int el, IntNode *ptr = 0) {
+IntSLLNode::IntSLLNode(int el, IntSLLNode *ptr = 0) {
 	info = el;
 	next = ptr;
 }
@@ -11,7 +11,7 @@ IntSLList::IntSLList() {
 }
 
 IntSLList::~IntSLList() {
-	for (IntNode *p; !isEmpty(); /**/)
+	for (IntSLLNode *p; !isEmpty(); /**/)
 	{
 		p = head->next;
 		delete head;
@@ -24,26 +24,26 @@ int IntSLList::isEmpty() {
 }
 
 void IntSLList::addToHead(int el) {
-	head = new IntNode(el, head);
+	head = new IntSLLNode(el, head);
 	if (tail == 0)
 		tail = head;
 }
 
 void IntSLList::addToTail(int el) {
 	if (tail != 0) {	// if the list is not empty
-		tail->next = new IntNode(el);
+		tail->next = new IntSLLNode(el);
 		tail = tail->next;
 	}
 	else
 	{
 		// this is the first element being added
-		head = tail = new IntNode(el);
+		head = tail = new IntSLLNode(el);
 	}
 }
 
 int IntSLList::deleteFromHead() {
 	int el = head->info;
-	IntNode *tmp = head;
+	IntSLLNode *tmp = head;
 
 	if (head == tail) {		// only one node in the list
 		head = tail = 0;
@@ -62,11 +62,44 @@ int IntSLList::deleteFromTail() {
 		tail = head = 0;
 	}
 	else {
-		IntNode *tmp;	// find the predecessor of tail
+		IntSLLNode *tmp;	// find the predecessor of tail
 		for (tmp = head; tmp->next != tail; tmp = tmp->next);
 		delete tail;
 		tail = tmp;
 		tail->next = 0;
 	}
 	return el;
+}
+
+void IntSLList::deleteNode(int el) {
+	if (head != NULL) {
+		if (head == tail && el == head->info) { // only 1 node in list
+			delete head;
+			head = tail = NULL;
+		}
+		else if (el == head->info) { // if el to delete is first node
+			IntSLLNode *tmp = head;
+			head = head->next;
+			delete tmp;
+		}
+		else {
+			IntSLLNode *pred, *tmp;
+			for (pred = head, tmp = head->next;
+				tmp != NULL && !(tmp->info == el);
+				pred = pred->next, tmp = tmp->next);
+			
+			if (tmp != NULL) {
+				pred->next = tmp->next;
+				if (tmp == tail)	// adjust tail if we are deleting the tail
+					tail = pred;
+				delete tmp;
+			}
+		}
+	}
+}
+
+bool IntSLList::isInList(int el) const {
+	IntSLLNode *tmp;
+	for (tmp = head; tmp != 0 && !(tmp->info == el); tmp = tmp->next);
+	return tmp != 0;
 }
